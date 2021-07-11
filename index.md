@@ -1,10 +1,9 @@
 ---
 layout: page
 title: "NTA 8035"
-permalink: /
 ---
 
-## Rules for information modelling of the built environment
+## Semantic modelling of information in the built environment
 
 These pages provide a way to lookup and dereference the concepts of 
 <a href='-/downloads#norm' class='link dim underline-hover blue'>
