@@ -1,0 +1,22 @@
+url: "https://w3id.org"
+baseurl: /nta8035
+remote_theme: redmer/minimaal
+title: NTA 8035
+description: NTA 8035 – Semantic modelling of information in the built environment
+lang: en
+timezone: Europe/Amsterdam
+repo: https://github.com/bimloket/nta8035
+
+minimaal:
+  nested_links: false
+  disable_seo: true
+
+staticld_ghpages:
+  input_files:
+    - data/nta8035.ttl
+  onto_base: "https://w3id.org/def/basicsemantics-owl#"
+  vocab_base: "https://w3id.org/def/basicsemantics-owl#"
+  linked_ns:
+    - "nta8035"
+  graph_order:
+    - "file:///Users/redmer/Code/bimloket/nta8035/data/nta8035.ttl"

@@ -1,0 +1,4 @@
+title	sortkey	norminform	mimetype	desc	url	anchorid	namespace	ontology	type
+Classes and Properties (OWL)	3	normative	text/turtle	Defines OWL class and property types for the definitions in the RDFS file.	/data/nta8035.ttl	owl	nta8035:	https://w3id.org/def/basicsemantics-owl	owl:Ontology
+As TriG	5	informative	application/trig	This convenience file separates the constituent ontologies into graphs.	/data/concat/nta8035.trig	trig	nta8035:	</code>with appropriate accept header at: <code>https://w3id.org/def/basicsemantics-owl	owl:Ontology
+As RDF/XML	7	informative	application/rdf+xml	This convenience file in RDF/XML concatenates the constituent ontologies into a single file.	/data/concat/nta8035.rdf	rdfxml	nta8035:	</code>with appropriate accept header at: <code>https://w3id.org/def/basicsemantics-owl	owl:Ontology

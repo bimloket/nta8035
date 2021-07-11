@@ -1,0 +1,16 @@
+links1:
+  - label: Norm
+    url: https://www.nen.nl/nta-8035-2020-nl-266070
+  - label: 'NEN'
+    url: https://nen.nl
+links2:
+  - label: 'BIM Loket'
+    url: https://bimloket.nl
+  - label: 'GitHub'
+    url: https://github.com/bimloket/
+  
+copyright_statement: "NTA 8035:2020"
+
+sosumi:
+  - label: See source on GitHub
+    url: https://github.com/bimloket/nta8035/

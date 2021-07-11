@@ -1,0 +1,286 @@
+@prefix quantitykind: <http://qudt.org/vocab/quantitykind/> .
+@prefix bs:    <https://w3id.org/def/basicsemantics-owl#> .
+@prefix qudt:  <http://qudt.org/schema/qudt/> .
+@prefix unit:  <http://qudt.org/vocab/unit/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+bs:Activity  rdf:type    owl:Class ;
+        rdfs:subClassOf  owl:Thing ;
+        rdfs:subClassOf  [ rdf:type           owl:Restriction ;
+                           owl:allValuesFrom  bs:Activity ;
+                           owl:onProperty     bs:hasPart
+                         ] ;
+        skos:definition  "An activity is something possibly or actual happens in space and time" ;
+        skos:example     "Fluid pressure measurement, driving a car are examples of an <activity> " ;
+        skos:prefLabel   "activity"@en , "activiteit"@nl ;
+        skos:scopeNote   "Process, function, human activity, machine activity, task, procedure, project are subclasses of <Activity>." .
+
+bs:hasTemporalReference
+        rdf:type        owl:ObjectProperty ;
+        rdfs:domain     bs:TemporalLocation ;
+        rdfs:range      bs:TemporalReference ;
+        skos:prefLabel  "heeft tijdreferentie"@nl , "has temporal reference"@en .
+
+bs:SpatialReference  rdf:type  owl:Class ;
+        rdfs:subClassOf  owl:Thing ;
+        skos:prefLabel   "spatial reference"@en , "ruimtereferentie"@nl .
+
+bs:InformationObject  rdf:type  owl:Class ;
+        rdfs:subClassOf  owl:Thing ;
+        rdfs:subClassOf  [ rdf:type           owl:Restriction ;
+                           owl:allValuesFrom  bs:InformationObject ;
+                           owl:onProperty     bs:hasPart
+                         ] ;
+        skos:definition  "Thing that is a whole of information on itself and has an own identity" ;
+        skos:example     "a file within a computer system, the PDF file with URI http://material- certificate/M-101-1234.pdf are examples of <InformationObject> " ;
+        skos:prefLabel   "information object"@en , "informatieobject"@nl ;
+        skos:scopeNote   "Requirement, document, statement, E-mail, code, identifier are subclasses of <InformationObject> ." .
+
+<https://w3id.org/def/basicsemantics-owl>
+        rdf:type     owl:Ontology ;
+        owl:imports  <http://www.w3.org/2004/02/skos/core> , <http://qudt.org/vocab/unit> , <http://qudt.org/vocab/quantitykind> , <http://qudt.org/schema/qudt> .
+
+bs:CoordinateReferenceSystem
+        rdf:type         owl:Class ;
+        rdfs:subClassOf  bs:SpatialReferenceSystem ;
+        skos:prefLabel   "coordinate reference system"@en , "coordinaatreferentiesysteem"@nl .
+
+bs:hasBoundary  rdf:type  owl:ObjectProperty ;
+        rdfs:domain      [ rdf:type     owl:Class ;
+                           owl:unionOf  ( bs:PhysicalObject bs:Activity )
+                         ] ;
+        rdfs:range       bs:SpatialRegion ;
+        skos:definition  "This relationship applies between a Physical Object and a Spatial Region."@en , "Deze relatie geldt tussen een Fysiek Object en een Ruimtelijk Gebied."@nl ;
+        skos:example     "A parcel is bounded by a 1D GML polyline."@en , "Een perceel wordt begrensd door een 1D GML polyline."@nl ;
+        skos:prefLabel   "heeft begrenzing"@nl , "has boundary"@en .
+
+bs:describes  rdf:type   owl:ObjectProperty ;
+        rdfs:domain      bs:InformationObject ;
+        rdfs:range       [ rdf:type     owl:Class ;
+                           owl:unionOf  ( bs:PhysicalObject bs:Activity bs:Event bs:State bs:InformationObject )
+                         ] ;
+        skos:definition  "This relationship applies between an Information Object and a Physical Object, an Activity, an Event, a State, a Time Period, a Spatial Region or another Information Object."@en , "Deze relatie geldt tussen een Informatie Object en een Fysiek Object, een Activiteit, een Gebeurtenis, een Toestand, een Tijdperiode, een Ruimtelijk Gebied of een ander Informatie Object."@nl ;
+        skos:example     "Take the Ketel bridge. Over time, a dossier has been created of drawings, specifications, reports, invoices, in analogue or in digital form. Each of these documents describes the Ketelbrug and can be seen as an instance of an Information Object that describes the Ketelbrug. "@en , "Neem de Ketelbrug. Daar is in de loop der tijden een waar dossier ontstaan van tekeningen, specificaties, rapporten, nota's, in analoge of in digitale vorm. Elk van deze documenten beschrijft de Ketelbrug en kan worden gezien als een instantie van een Informatie Object die de Ketelbrug beschrijft."@nl ;
+        skos:prefLabel   "describes"@en , "beschrijft"@nl .
+
+bs:SpatialRegion  rdf:type  owl:Class ;
+        rdfs:subClassOf  owl:Thing ;
+        skos:definition  "Demarcated space" ;
+        skos:example     "an IFC BREP or GeoSPARQL geometry representing a physical space, as special case of a physical object, such as an office space, a construction area for a building, a maritime traffic zone within the Channel, a hazard zone within a plant or the loading gauge of a train are examples of a <SpatialRegion>" ;
+        skos:prefLabel   "spatial region"@en , "ruimtelijk gebied"@nl .
+
+bs:transforms  rdf:type  owl:ObjectProperty ;
+        rdfs:domain      bs:Activity ;
+        rdfs:range       bs:PhysicalObject ;
+        skos:definition  "This relationship applies between an Activity and a Physical Object or between an Activity and an Information Object."@en , "Deze relatie geldt tussen een Activiteit en een Fysiek Object of tussen een Activiteit en een Informatie Object."@nl ;
+        skos:example     "Baking (an activity) transforms a pizza (a physical object) from unbaked (a state) to baked (another state)."@en , "Het Bakken (een activiteit) transformeert een pizza (een fysiek object) van ongebakken (een toestand) naar gebakken (een andere toestand)."@nl ;
+        skos:prefLabel   "transforms"@en , "transformeert"@nl .
+
+bs:TemporalReference  rdf:type  owl:Class ;
+        rdfs:subClassOf  owl:Thing ;
+        skos:prefLabel   "tijdreferentie"@nl , "temporal reference"@en .
+
+bs:EnumerationType  rdf:type  owl:Class ;
+        rdfs:subClassOf  owl:Thing ;
+        skos:definition  "The superclass of all user-defined enumeration classes where the allowed enumeration items are individuals" ;
+        skos:example     "LoadLevelType being Low, Medium or High" ;
+        skos:prefLabel   "enumeration type"@en , "enumeratietype"@nl .
+
+bs:hasTemporalLocation
+        rdf:type        owl:ObjectProperty ;
+        rdfs:domain     bs:TemporalRegion ;
+        rdfs:range      bs:TemporalLocation ;
+        skos:prefLabel  "heeft tijdlocatie"@nl , "has temporal location"@en .
+
+bs:SpatialReferenceSystem
+        rdf:type         owl:Class ;
+        rdfs:subClassOf  owl:Thing ;
+        skos:prefLabel   "spatial reference system"@en , "ruimtereferentiesysteem"@nl .
+
+bs:LinearReferenceSystem
+        rdf:type         owl:Class ;
+        rdfs:subClassOf  bs:SpatialReferenceSystem ;
+        skos:prefLabel   "linear reference system"@en , "lineair referentiesysteem"@nl .
+
+bs:State  rdf:type       owl:Class ;
+        rdfs:subClassOf  owl:Thing ;
+        skos:definition  "A particular condition that something is in during a specific period in time" ;
+        skos:example     "well-functioning of a car, the condition of an elevator of being un-safe are examples of a <State>" ;
+        skos:prefLabel   "toestand"@nl , "state"@en ;
+        skos:scopeNote   "Condition, failure state, objective are subclasses of <State>." .
+
+bs:QuantityValue  rdf:type  owl:Class ;
+        rdfs:subClassOf  owl:Thing ;
+        rdfs:subClassOf  [ rdf:type           owl:Restriction ;
+                           owl:allValuesFrom  xsd:decimal ;
+                           owl:onProperty     rdf:value
+                         ] ;
+        rdfs:subClassOf  [ rdf:type         owl:Restriction ;
+                           owl:cardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty   rdf:value
+                         ] ;
+        skos:prefLabel   "quantity value"@en , "kwantiteitwaarde"@nl .
+
+bs:hasSpatialLocation
+        rdf:type        owl:ObjectProperty ;
+        rdfs:domain     bs:SpatialRegion ;
+        rdfs:range      bs:SpatialLocation ;
+        skos:prefLabel  "heeft ruimtelocatie"@nl , "has spatial location"@en .
+
+bs:hasPeriod  rdf:type   owl:ObjectProperty ;
+        rdfs:domain      [ rdf:type     owl:Class ;
+                           owl:unionOf  ( bs:PhysicalObject bs:Activity )
+                         ] ;
+        rdfs:range       bs:TemporalRegion ;
+        skos:definition  "This relationship applies between a Condition and a Time Period or between a Physical Object and a Time Period."@en , "Deze relatie geldt tussen een Toestand en een Tijdperiode of tussen een Fysiek Object en een Tijdperiode."@nl ;
+        skos:example     "From Friday 26 July up to and including Sunday 18 August 2019 (time period) the N231 (physical object) is completely closed off (condition) due to major maintenance (activity)."@en , "Van vrijdag 26 juli tot en met zondag 18 augustus 2019 (tijdperiode) is de N231 (fysiek object) volledig afgesloten (toestand) vanwege groot onderhoud (activiteit)."@nl ;
+        skos:prefLabel   "heeft periode"@nl , "has period"@en .
+
+bs:hasInterior  rdf:type  owl:ObjectProperty ;
+        rdfs:domain      [ rdf:type     owl:Class ;
+                           owl:unionOf  ( bs:PhysicalObject bs:Activity )
+                         ] ;
+        rdfs:range       bs:SpatialRegion ;
+        skos:definition  "This relationship applies between a Physical Object and a (topological) Spatial Region, between an Activity and a Spatial Region and between a State and a Spatial Region."@en , "Deze relatie geldt tussen een Fysiek Object en een (topologisch) Ruimtelijk Gebied, tussen een Activiteit en een Ruimtelijk Gebied en tussen een Toestand en een Ruimtelijk Gebied."@nl ;
+        skos:example     "An IfcSpace as physical space can have a Constructive Solid Geometry (CSG) representation as a special case of a 3D region in space."@nl , "Een IfcSpace als fysieke ruimte kan een Constructive Solid Geometry (CSG) representatie hebben als speciaal geval van een 3D ruimtelijk gebied."@nl ;
+        skos:prefLabel   "heeft inwendige"@nl , "has interior"@en .
+
+bs:AddressSystem  rdf:type  owl:Class ;
+        rdfs:subClassOf  bs:SpatialReferenceSystem ;
+        skos:prefLabel   "adressysteem"@nl , "address system"@en .
+
+bs:TemporalLocation  rdf:type  owl:Class ;
+        rdfs:subClassOf  owl:Thing ;
+        skos:prefLabel   "tijdlocatie"@nl , "temporal location"@en .
+
+bs:quantityKind  rdf:type  owl:ObjectProperty ;
+        rdfs:range      qudt:QuantityKind ;
+        skos:prefLabel  "quantity kind"@en , "grootheid"@nl .
+
+bs:TemporalRegion  rdf:type  owl:Class ;
+        rdfs:subClassOf  owl:Thing ;
+        skos:definition  "A length or portion of time" ;
+        skos:example     "week 12 in 2019, design stage of the Schiphol tunnel are examples of a <TemporalRegion>" ;
+        skos:prefLabel   "temporeel gebied"@nl , "temporal region"@en ;
+        skos:scopeNote   "Week, day, life cycle stage are subclasses of <TemporalRegion>." .
+
+bs:hasSpatialReferenceSystem
+        rdf:type        owl:ObjectProperty ;
+        rdfs:domain     bs:SpatialLocation ;
+        rdfs:range      bs:SpatialReferenceSystem ;
+        skos:prefLabel  "heeft ruimtereferentiesysteem"@nl , "has spatial reference system"@en .
+
+bs:PhysicalObject  rdf:type  owl:Class ;
+        rdfs:subClassOf  owl:Thing ;
+        rdfs:subClassOf  [ rdf:type           owl:Restriction ;
+                           owl:allValuesFrom  bs:PhysicalObject ;
+                           owl:onProperty     bs:hasPart
+                         ] ;
+        skos:definition  "Is something that possibly or actually exists in space and time, perceivable through the senses" ;
+        skos:example     "Pump P_101, a single living organism are examples of a <PhysicalObject>" ;
+        skos:prefLabel   "physical object"@en , "fysiek object"@nl ;
+        skos:scopeNote   "Artefact, matter, person, organisation, stream, connection are subclasses of <PhysicalObject>." .
+
+bs:IndexKnownSpatialLocations
+        rdf:type         owl:Class ;
+        rdfs:subClassOf  bs:SpatialReferenceSystem ;
+        skos:prefLabel   "index known spatial locations"@en , "index bekende ruimtelijke plaatsen"@nl .
+
+bs:hasState  rdf:type    owl:ObjectProperty ;
+        rdfs:domain      [ rdf:type     owl:Class ;
+                           owl:unionOf  ( bs:PhysicalObject bs:Activity )
+                         ] ;
+        rdfs:range       bs:State ;
+        skos:definition  "This relationship applies between an Activity and a State or between a Physical Object and a State."@en , "Deze relatie geldt tussen een Activiteit en een Toestand of tussen een Fysiek Object en een Toestand."@nl ;
+        skos:example     "A state can contain multiple parameters. In this way, the air pressure, temperature and humidity of a piece of atmosphere can be recorded. These three parameters then define the state of the atmosphere at a certain location and time."@en , "Een toestand kan meerdere parameters bevatten. Zo kan van een stukje atmosfeer zowel de luchtdruk, temperatuur als de luchtvochtigheid worden vastgelegd. Deze drie parameters definieren dan de toestand van de atmosfeer op een bepaalde locatie en een bepaald tijdstip."@nl ;
+        skos:prefLabel   "heeft toestand"@nl , "has state"@en .
+
+bs:TemporalCoordinateReferenceSystem
+        rdf:type         owl:Class ;
+        rdfs:subClassOf  bs:TemporalReferenceSystem ;
+        skos:prefLabel   "tijdcoordinaatreferentiesysteem"@nl , "temporal coordinate reference system"@en .
+
+bs:triggers  rdf:type    owl:ObjectProperty ;
+        rdfs:domain      [ rdf:type     owl:Class ;
+                           owl:unionOf  ( bs:Activity bs:PhysicalObject )
+                         ] ;
+        rdfs:range       bs:Event ;
+        skos:definition  "This relationship applies between an Event and an Activity and an Event and a Physical Object."@en , "Deze relatie geldt tussen een Gebeurtenis en een Activiteit en een Gebeurtenis en een Fysiek Object."@nl ;
+        skos:example     "Take a traffic accident (an event). This initiates the arrival of the emergency services (an activity)."@en , "Neem een Verkeersongeval (een gebeurtenis). Deze initieert de komst van de hulpdiensten (een activiteit)."@nl ;
+        skos:prefLabel   "triggert"@nl , "triggers"@en .
+
+bs:unit  rdf:type       owl:ObjectProperty ;
+        rdfs:range      qudt:Unit ;
+        skos:prefLabel  "unit"@en , "eenheid"@nl .
+
+bs:performs  rdf:type    owl:ObjectProperty ;
+        rdfs:domain      bs:PhysicalObject ;
+        rdfs:range       bs:Activity ;
+        skos:definition  "This relationship applies between a Physical Object and an Activity."@en , "Deze relatie geldt tussen een Fysiek Object en een Activiteit."@nl ;
+        skos:example     "The welding of a bridge railing (an activity) is carried out with the aid of a welding machine (physical object) and the welder (physical object)."@en , "Het Lassen van een brugleuning (een activiteit) wordt uitgevoerd met behulp van een Lasapparaat (fysiek object) en de Lasser (fysiek object)."@nl ;
+        skos:prefLabel   "voert uit"@nl , "performs"@en .
+
+bs:hasTemporalReferenceSystem
+        rdf:type        owl:ObjectProperty ;
+        rdfs:domain     bs:TemporalLocation ;
+        rdfs:range      bs:TemporalReferenceSystem ;
+        skos:prefLabel  "heeft tijdreferentiesysteem"@nl , "has temporal reference system"@en .
+
+bs:begins  rdf:type      owl:ObjectProperty ;
+        rdfs:domain      bs:Event ;
+        rdfs:range       bs:Activity ;
+        skos:definition  "This relationship applies between an Event and a State."@en , "Deze relatie geldt tussen een Gebeurtenis en een Toestand."@nl ;
+        skos:example     "The lightning strike (event) is the start of the forest fire (state)."@en , "De blikseminslag (gebeurtenis) is het begin van de bosbrand (toestand)."@nl ;
+        skos:prefLabel   "begint"@nl , "begins"@en .
+
+bs:abbreviation  rdf:type   owl:AnnotationProperty ;
+        rdfs:range          xsd:string ;
+        rdfs:subPropertyOf  skos:altLabel ;
+        skos:prefLabel      "afkorting"@nl , "abbreviation"@en .
+
+bs:CalendarSystem  rdf:type  owl:Class ;
+        rdfs:subClassOf  bs:TemporalReferenceSystem ;
+        skos:prefLabel   "kalendersysteem"@nl , "calendar system"@en .
+
+bs:TemporalReferenceSystem
+        rdf:type         owl:Class ;
+        rdfs:subClassOf  owl:Thing ;
+        skos:prefLabel   "tijdreferentiesysteem"@nl , "temporal reference system"@en .
+
+bs:SpatialLocation  rdf:type  owl:Class ;
+        rdfs:subClassOf  owl:Thing ;
+        skos:prefLabel   "spatial location"@en , "ruimtelocatie"@nl .
+
+[ rdf:type     owl:AllDisjointClasses ;
+  owl:members  ( bs:PhysicalObject bs:InformationObject bs:State bs:Event bs:TemporalRegion bs:SpatialRegion bs:Activity )
+] .
+
+bs:hasSpatialReference
+        rdf:type        owl:ObjectProperty ;
+        rdfs:domain     bs:SpatialLocation ;
+        rdfs:range      bs:SpatialReference ;
+        skos:prefLabel  "heeft ruimtereferentie"@nl , "has spatial reference"@en .
+
+bs:hasPart  rdf:type     owl:ObjectProperty ;
+        skos:definition  "This relationship applies between Physical Objects themselves, between Information Objects themselves or between Activities themselves."@en , "Deze relatie geldt tussen Fysiek Objecten onderling, tussen Informatie Objecten onderling of tussen Activiteiten onderling."@nl ;
+        skos:example     "Ellen's bicycle (physical object) consists of a frame, two wheels and various other parts (all physical objects)."@en , "De fiets van Ellen (fysiek object) bestaat uit een frame, twee wielen en diverse andere onderdelen (allen fysieke objecten)."@nl ;
+        skos:prefLabel   "heeft deel"@nl , "has part"@en .
+
+bs:Event  rdf:type       owl:Class ;
+        rdfs:subClassOf  owl:Thing ;
+        skos:definition  "A thing that happens or takes place and marks the beginning or ending of a state" ;
+        skos:example     "The connection of power to pump P_101, the take-off of a aeroplane are examples of an <Event>. " ;
+        skos:prefLabel   "gebeurtenis"@nl , "event"@en ;
+        skos:scopeNote   "Transition, cause, effect, risk, milestone, issue, accident, point in time are subclasses of <Event>." .
+
+bs:ends  rdf:type        owl:ObjectProperty ;
+        rdfs:domain      bs:Event ;
+        rdfs:range       bs:Activity ;
+        skos:definition  "This relationship applies between an Event and a State."@en , "Deze relatie geldt tussen een Gebeurtenis en een Toestand."@nl ;
+        skos:example     "The thunderstorm (event) ended the nice weather (state)."@en , "Het onweer (gebeurtenis) beeindigde het mooie weer (toestand)."@nl ;
+        skos:prefLabel   "ends"@en , "beeindigt"@nl .
