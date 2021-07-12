@@ -9,6 +9,11 @@ These pages provide a way to lookup and dereference the concepts of
 <a href='-/downloads#norm' class='link dim underline-hover blue'>
 NTA 8035:2020</a>.
 
+NTA 8035:2020 will be superceded by [NEN 2660-2:2021][nen2660], to be published in Q4 of 2021.
+New implementations of NTA 8035 are therefore discouraged.
+
+[nen2660]: https://bimloket.github.io/nen2660/
+
 ***
 
 {% assign pp = site.pages | sort: "sortkey" %}
@@ -36,4 +41,4 @@ NTA 8035:2020</a>.
 
 You may discuss implementation and usage on GitHub at 
 <a href='{{ site.repo }}/discussions/' class='link'>
-bimloket/nta8035</a>.
+bimloket/nen2660</a>.

@@ -5,7 +5,7 @@ title: NTA 8035
 description: NTA 8035 – Semantic modelling of information in the built environment
 lang: en
 timezone: Europe/Amsterdam
-repo: https://github.com/bimloket/nta8035
+repo: https://github.com/bimloket/nen2660
 
 minimaal:
   nested_links: false
